@@ -16,6 +16,10 @@ mkdir -p dist
 	done
 } > dist/theme.css
 
+# Keep theme.css under Obsidian Sync's 5 MB per-file limit (see tools/subset_fonts.py).
+[ -x .venv/bin/python ] || { python3 -m venv .venv && .venv/bin/pip install -q fonttools brotli; }
+.venv/bin/python tools/subset_fonts.py dist/theme.css
+
 cat > dist/manifest.json <<JSON
 {
   "name": "Willemstad Plus",
