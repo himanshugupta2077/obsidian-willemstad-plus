@@ -4,6 +4,7 @@
 
 ## Patches
 
+- `patches/folders.css`: Blue Topaz-style colorful folders. Each top-level folder in the file explorer is an outlined box with a colored left edge, and its subfolders, icons, hover and active note take that color. Works with the Workspace Folder Scope plugin (the scoped folder's subfolders become the boxes).
 - `patches/tabs.css`: every tab in the main area is an outlined box instead of bare text. Pinned tabs get an accent tint, and the active tab gets a stronger accent outline.
 
 ## Layout

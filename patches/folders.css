@@ -1,0 +1,174 @@
+/* ────────────────────────────────────────────────────────────────────────────────
+> Willemstad Plus \ Colorful folders
+──────────────────────────────────────────────────────────────────────────────────
+  Modelled on Blue Topaz's "colorful folder: border" style. Every top-level folder in the file
+  explorer is an outlined box with a colored left edge, and everything inside it (subfolder
+  names, folder and note icons, hover and the active note) picks up that folder's color.
+  Colors cycle through --wp-fold-1 … --wp-fold-12 in explorer order (counting starts at 2:
+  the explorer's first child is a spacer element).
+
+  "Top level" also covers the Workspace Folder Scope plugin: while it scopes the explorer to a
+  folder, that folder's subfolders are the ones drawn as boxes, and the hidden folders above
+  them are left unstyled.
+──────────────────────────────────────────────────────────────────────────────── */
+body {
+  --wp-fold-1: #e5484d;
+  --wp-fold-2: #f76b15;
+  --wp-fold-3: #e2a300;
+  --wp-fold-4: #30a46c;
+  --wp-fold-5: #12a594;
+  --wp-fold-6: #0d8ecf;
+  --wp-fold-7: #3e63dd;
+  --wp-fold-8: #8e4ec6;
+  --wp-fold-9: #d6409f;
+  --wp-fold-10: #8b8d98;
+  --wp-fold-11: #5b6b7f;
+  --wp-fold-12: #c2410c;
+  --wp-fold-title-mix: black 20%;
+  --wp-fold-tint: 16%;
+}
+
+body.theme-dark {
+  --wp-fold-title-mix: white 38%;
+  --wp-fold-tint: 24%;
+}
+
+/* Note and folder icons, drawn as masks so they take the folder color. */
+body {
+  --wp-icon-note: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4'/%3E%3Cpath d='M10 9H8'/%3E%3Cpath d='M16 13H8'/%3E%3Cpath d='M16 17H8'/%3E%3C/svg%3E");
+  --wp-icon-folder: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E");
+  --wp-icon-folder-open: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M2 6a2 2 0 0 1 2-2h4.2a2 2 0 0 1 1.6.8L11 6.5h8a2 2 0 0 1 2 2V10H6.3a2 2 0 0 0-1.9 1.4L2 19Z'/%3E%3Cpath d='M4.6 12.7A1 1 0 0 1 5.6 12H21.7a1 1 0 0 1 1 1.3l-2 6.3A2 2 0 0 1 18.8 21H3.3a1 1 0 0 1-1-1.3Z'/%3E%3C/svg%3E");
+}
+
+/* ── The boxes ──────────────────────────────────────────────────────────────── */
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+) {
+  --wp-fold: var(--wp-fold-10);
+  margin: 5px 6px 5px 0;
+  border: 1px solid var(--background-modifier-border);
+  border-inline-start: 3px solid var(--wp-fold);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 2) { --wp-fold: var(--wp-fold-1); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 3) { --wp-fold: var(--wp-fold-2); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 4) { --wp-fold: var(--wp-fold-3); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 5) { --wp-fold: var(--wp-fold-4); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 6) { --wp-fold: var(--wp-fold-5); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 7) { --wp-fold: var(--wp-fold-6); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 8) { --wp-fold: var(--wp-fold-7); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 9) { --wp-fold: var(--wp-fold-8); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 10) { --wp-fold: var(--wp-fold-9); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 11) { --wp-fold: var(--wp-fold-10); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 12) { --wp-fold: var(--wp-fold-11); }
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+):nth-child(12n + 1) { --wp-fold: var(--wp-fold-12); }
+
+/* Collapsed boxes highlight as a whole on hover. */
+body:not(.is-grabbing) :is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+).is-collapsed:hover {
+  background-color: color-mix(in srgb, var(--wp-fold) var(--wp-fold-tint), transparent);
+}
+
+/* Box title: bold, in the folder color, no collapse arrow (the box itself is the affordance). */
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+) > .nav-folder-title {
+  font-weight: var(--font-semibold);
+}
+
+:is(
+  .nav-files-container > div > .tree-item.nav-folder:not(.workspace-folder-scope-chain),
+  .workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder
+) > .nav-folder-title > .collapse-icon {
+  display: none;
+}
+
+/* ── Inside a box ───────────────────────────────────────────────────────────── */
+.workspace-leaf-content[data-type="file-explorer"] .nav-folder-title {
+  color: color-mix(in hsl, var(--wp-fold, var(--nav-item-color)), var(--wp-fold-title-mix));
+}
+
+.workspace-leaf-content[data-type="file-explorer"] .nav-folder-title:hover,
+.workspace-leaf-content[data-type="file-explorer"] .nav-file-title:hover,
+.workspace-leaf-content[data-type="file-explorer"] .nav-file-title.is-active {
+  background-color: color-mix(in srgb, var(--wp-fold, var(--text-normal)) var(--wp-fold-tint), transparent);
+}
+
+body:not(.is-grabbing) .nav-folder.is-collapsed:hover > .nav-folder-title:hover {
+  background-color: transparent;
+}
+
+/* Subfolders: open/closed folder icon instead of the arrow. */
+.nav-folder-children .nav-folder-title > .collapse-icon {
+  display: none;
+}
+
+.nav-folder-children .nav-folder-title-content::before,
+.nav-file-title-content::before {
+  content: "";
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1.05em;
+  height: 1.05em;
+  margin-inline-end: 0.45em;
+  vertical-align: -0.15em;
+  background-color: var(--wp-fold, var(--text-muted));
+  opacity: 0.6;
+  -webkit-mask: var(--wp-icon-note) center / contain no-repeat;
+}
+
+.nav-folder-children .nav-folder-title-content::before {
+  -webkit-mask-image: var(--wp-icon-folder-open);
+  opacity: 0.75;
+}
+
+.nav-folder-children .nav-folder.is-collapsed > .nav-folder-title .nav-folder-title-content::before {
+  -webkit-mask-image: var(--wp-icon-folder);
+}
+
+/* No extra icon on the hidden scope folders' children rows, which act as the top level. */
+.workspace-folder-scope-chain:not(.workspace-folder-scope-ancestor) > .tree-item-children > .tree-item.nav-folder > .nav-folder-title .nav-folder-title-content::before {
+  display: none;
+}
